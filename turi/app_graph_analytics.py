@@ -11,11 +11,11 @@ import turicreate
 
 
 def usage():
-  print sys.argv[0] + " --graph <graph> --app <app> [--threads <threads>] [--verbose] [--pbsim]"
-  print sys.argv[0] + " -g <graph> -a <app> [-t <threads>] [-v] [-s]"
-  print "graph: wiki/twitter (default: wiki)"
-  print "app: pagerank/connectedcomp/graphcol/labelprop (default: pagerank)" 
-  print "pbsim: simulation mode (default: no simulation)"
+  print (sys.argv[0] + " --graph <graph> --app <app> [--threads <threads>] [--verbose] [--pbsim]")
+  print (sys.argv[0] + " -g <graph> -a <app> [-t <threads>] [-v] [-s]")
+  print ("graph: wiki/twitter (default: wiki)")
+  print ("app: pagerank/connectedcomp/graphcol/labelprop (default: pagerank)")
+  print ("pbsim: simulation mode (default: no simulation)")
 
 ################### PBSIM ###############################
 def do_attach_pbsim():
@@ -27,15 +27,15 @@ def do_attach_pbsim():
 ################## LOAD GRAPH ##########################
 
 def do_load_graph_wiki():
-  print "[PB]: Loading Wiki graph"
+  print ("[K] Loading Wiki graph")
   if os.path.exists(data_w_path):
-    print "[PB]: Loading graph from local path"
+    print ("[K] Loading graph from local path")
     sg = turicreate.load_sgraph(data_w_path)
   else:
     sg = turicreate.load_sgraph(url)
     sg.save(data_w_path)
 
-  print sg.summary()
+  print (sg.summary())
   sys.stdout.flush()
 
   time.sleep(5)
@@ -44,30 +44,30 @@ def do_load_graph_wiki():
 
 def do_load_graph_twitter():
   # Load data
-  print "[PB]: Loading Twitter graph"
+  print ("[K]: Loading Twitter graph")
   if os.path.exists(data_w_path_edges):
-    print "[PB]: Loading graph from local path"
+    print ("[K]: Loading graph from local path")
     edges = turicreate.SFrame.read_csv(data_w_path_edges, header=False)
     edges = edges.rename({'X1':'src_node', 'X2':'dst_node'})
-    print edges
+    print (edges)
   else:
-    print "[PB][ERROR]: Can't find data! " + data_w_path_edges
+    print ("[K][ERROR]: Can't find data! " + data_w_path_edges)
     exit(1)
 
   if os.path.exists(data_w_path_nodes):
-    print "[PB]: Loading graph from local path"
+    print ("[K]: Loading graph from local path")
     nodes = turicreate.SFrame.read_csv(data_w_path_nodes, header=False)
     nodes = nodes.rename({'X1':'node_id'})
-    print nodes
+    print (nodes)
   else:
-    print "[PB][ERROR]: Can't find nodes data! " + data_w_path_nodes
+    print ("[K][ERROR]: Can't find nodes data! " + data_w_path_nodes)
     exit(1)
 
   # Create graph 
   sg = turicreate.SGraph()
   sg = sg.add_vertices(nodes, vid_field='node_id')
   sg = sg.add_edges(edges, src_field='src_node', dst_field='dst_node')
-  print sg.summary()
+  print (sg.summary())
   sys.stdout.flush()
 
   time.sleep(10)
@@ -82,54 +82,54 @@ def do_load_graph(graph):
 
 ################# PAGE RANK #############################
 def run_page_rank(sg):
-  print "[PB]: Running PageRank"
+  print ("[K]: Running PageRank")
   sys.stdout.flush()
   
   do_attach_pbsim()
 
   pr = turicreate.pagerank.create(sg, max_iterations=10, verbose=True)
-  print "[PB]: Done Running PageRank"
+  print ("[K]: Done Running PageRank")
   sys.stdout.flush()
 
-  print pr.summary()
+  print (pr.summary())
 
 
 
 ################# CONNECTED COMPONENTS #############################
 def run_connected_comp(sg):
-  print "[PB]: Running ConnectedComponents"
+  print ("[K]: Running ConnectedComponents")
   sys.stdout.flush()
 
   do_attach_pbsim()
 
   cc = turicreate.connected_components.create(sg)
 
-  print "[PB]: Done Running ConnectedComponents"
+  print ("[K]: Done Running ConnectedComponents")
   sys.stdout.flush()
 
-  print cc.summary()
+  print (cc.summary())
 
 
 
 ################# GRAPH COLORING  #############################
 def run_graph_coloring(sg):
-  print "[PB]: Running GraphColoring"
+  print ("[K]: Running GraphColoring")
   sys.stdout.flush()
 
-  do_attach_pbsim() 
+  do_attach_pbsim()
 
   color = turicreate.graph_coloring.create(sg)
-  print "[PB]: Done Running GraphColoring"
+  print ("[K]: Done Running GraphColoring")
 
   color_id = color['color_id']
   num_colors = color['num_colors']
   sys.stdout.flush()
 
-  print "color_id"
-  print color_id
-  print "num_colors"
-  print num_colors
-  print color.summary()
+  print ("color_id")
+  print (color_id)
+  print ("num_colors")
+  print (num_colors)
+  print (color.summary())
 
 
 ################# LABEL PROPAGATION  #############################
@@ -144,22 +144,22 @@ def init_label(vid):
     return None
 
 def run_label_propagation(sg):
-  print "[PB]: Running LabelPropagation"
+  print ("[K]: Running LabelPropagation")
   sys.stdout.flush()
 
   sg.vertices['labels'] = sg.vertices['__id'].apply(init_label, int)
 
-  do_attach_pbsim() 
+  do_attach_pbsim()
 
   m = turicreate.label_propagation.create(sg, label_field='labels')
   labels = m['labels']
 
-  print "[PB]: Done Running LabelPropagation"
+  print ("[K]: Done Running LabelPropagation")
   sys.stdout.flush()
 
-  print "Labels:"
-  print labels 
-  print m.summary()                                                            
+  print ("Labels:")
+  print (labels)
+  print (m.summary())
 
 
 ###################################################################
@@ -178,15 +178,13 @@ def do_run_app(app, sg):
 ######################
 config_attach_pbsim = False
 
-# tracker='sudo /home/icalciu/ccfpga/peaberry/src/pbsim-ptrace/tracker'
+tracker='sudo ./tracker'
 
-# home=os.path.dirname(os.path.abspath(__file__)) + '/../../../app-3'
-# data_file = 'US_business_links'
-# data_w_path=home + data_file
+home=os.path.dirname(os.path.abspath(__file__)) + '/Wiki-dataset/data/'
+data_file = 'US_business_links'
+data_w_path=home + data_file
 
-# url = 'https://static.turi.com/datasets/' + data_file
-
-home_twitter= os.path.dirname(os.path.abspath(__file__)) + '/Twitter-dataset/data/'
+home_twitter=os.path.dirname(os.path.abspath(__file__)) + '/Twitter-dataset/data/'
 data_file_edges = 'edges.csv'
 data_file_nodes = 'nodes.csv'
 data_w_path_edges=home_twitter + data_file_edges
@@ -206,7 +204,7 @@ except getopt.GetoptError as err:
 graph='wiki'
 app='pagerank'
 verbose = False
-threads = 56
+threads = 10
 for o, a in opts:
   if o in ("-v", "--verbose"):
     verbose = True
@@ -225,14 +223,12 @@ for o, a in opts:
     assert False, "unhandled option"
 
 
-pid=os.getpid()
-print "[PB]: My pid is " + str(pid)
-
 turicreate.config.set_runtime_config('TURI_DEFAULT_NUM_PYLAMBDA_WORKERS', threads)
+pid=os.getpid()
+
+print ("[K]: My pid is " + str(pid))
+print ("[K]: Running " + str(threads) + " threads")
+
 
 sg = do_load_graph(graph)
 do_run_app(app, sg)
-
-
-
-
