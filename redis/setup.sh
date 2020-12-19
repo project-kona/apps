@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./configure_redis.sh
+
 # install deps
 ###########################
 install_deps() {
@@ -38,13 +40,14 @@ install_memtier() {
   pushd memtier_benchmark
     autoreconf -ivf
     ./configure
-    make $(nproc)
+    make -j $(nproc)
     sudo make install
   popd
 }
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 pushd ${SCRIPT_DIR}
+install_deps
 install_redis
-configure_redis
 install_memtier
+configure_redis

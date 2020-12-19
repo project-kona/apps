@@ -7,7 +7,7 @@ git config --global credential.helper 'cache --timeout=36000'
 
 init_host() {
   sudo apt-get update
-  sudo apt-get -yq install libnuma-dev numactl build-essential  \
+  sudo apt-get -yq install libnuma-dev numactl build-essential \
                        python3 python3-pip python3-matplotlib \
                        python3-numpy git wget libevent-dev 
 }

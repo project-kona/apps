@@ -4,7 +4,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 pushd ${SCRIPT_DIR}
 
-    sudo python -m pip install -U turicreate
+    sudo python3 -m pip install -U turicreate
 
     # Get dataset
     # We need he ASU Twitter dataset
