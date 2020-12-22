@@ -1,4 +1,4 @@
-# KCacheSim
+# Applications
 
 ## Instructions
 These instructions have been tested on a clean Ubuntu 20.04 installation running on a CloudLab C6420 machine.
@@ -6,25 +6,12 @@ Make sure you have sudo access and at least 100GB free space for application dat
 
 Clone the repository and submodules
 ```
-# TODO: Clone command
+git clone --recurse-submodules https://github.com/project-kona/apps.git
 ```
 
-Install dependencies
+Set up applications and download data sets
+(this will take a long time and it is best to launch this inside a screen session)
 ```
-<repo_dir>/scripts/setup.sh
+cd apps/scripts
+./setup.sh
 ```
-
-Run everything
-```
-python3 <repo_dir>/scripts/sweep.py
-```
-
-All logs will be generated in `logs` directory
-
-Finally, generate all plots
-```
-TODO: Add
-```
-
-# Citations
-TODO: Add
