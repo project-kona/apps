@@ -29,7 +29,7 @@ configure_redis() {
 
   sudo sh -c "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
   sudo sh -c "echo 'echo never > /sys/kernel/mm/transparent_hugepage/enabled' >> /etc/rc.local"
-  sudo sh -c "echo 1024 > /proc/sys/net/core/somaxcon"
+  sudo sh -c "echo 1024 > /proc/sys/net/core/somaxconn"
 }
 
 
