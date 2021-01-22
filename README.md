@@ -20,7 +20,7 @@ cd apps/script
 
 These instructions have been tested on a clean Ubuntu 16.04.1 LTS installation on a CloudLab c220g2 machine (profile: [ubuntu16-bare](https://www.cloudlab.us/show-profile.php?uuid=a18d69ba-06c7-11e8-a52e-90e2ba22fee4)).
 
-After executing all the commands in the [Instructions](./README.md#Instructions) Section above, run also the following command (from the [apps/turi](apps/turi) folder):
+After executing all the commands in the [Instructions](./README.md#Instructions) Section above, run also the following command (from the project root folder):
 
 ```
 cd apps/script
