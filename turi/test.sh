@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source ${SCRIPT_DIR}/../../scripts/simulators.sh
+source ${SCRIPT_DIR}/../../KCacheSim/scripts/simulators.sh
 
 SRC_DIR=${SCRIPT_DIR}/
 
@@ -9,7 +9,7 @@ SRC_DIR=${SCRIPT_DIR}/
 
 function method_graphcol() {
     ${SIMULATOR} ${OUTPUT_PREFIX} "${CACHE_PARAMS}" \
-        "python ${SRC_DIR}/app_graph_analytics.py -g twitter -a graphcol"
+        "python3 ${SRC_DIR}/app_graph_analytics.py -g twitter -a graphcol"
 }
 
 method_$METHOD

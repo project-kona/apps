@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source ${SCRIPT_DIR}/../../scripts/simulators.sh
+source ${SCRIPT_DIR}/../../KCacheSim/scripts/simulators.sh
 
 PORT=$((30000 + ${UNIQUE_ID}))
 

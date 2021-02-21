@@ -2,7 +2,7 @@
 
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-source ${SCRIPT_DIR}/../../scripts/simulators.sh
+source ${SCRIPT_DIR}/../../KCacheSim/scripts/simulators.sh
 
 pushd ${SCRIPT_DIR}/Metis
 

@@ -20,6 +20,8 @@
 # in tasks/generate.py called "installer". It can be invoked by using
 # ``invoke generate.installer``.
 
+# Script taken from: https://bootstrap.pypa.io/get-pip.py
+
 import os.path
 import pkgutil
 import shutil

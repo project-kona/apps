@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# This code is under MIT License
+# https://github.com/ydmao/Metis/blob/master/LICENSE
+
+# Original taken from: https://github.com/ydmao/Metis/blob/master/data_tool/data-gen.sh
+
 TOP=./data
 
 if test ! -d $TOP ; then
